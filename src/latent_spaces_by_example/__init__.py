@@ -6,7 +6,6 @@ from .surrogate import (
     SurrogateChart,
     angular_surrogate_chart,
     knothe_rosenblatt_surrogate_chart,
-    simplex_surrogate_chart,
 )
 
 __all__ = [

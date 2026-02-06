@@ -5,7 +5,6 @@ from jaxtyping import Float, jaxtyped
 from .charts.angular import AngularChart
 from .charts.api import Chart
 from .charts.knothe_rosenblatt import KnotheRosenblattChart
-from .charts.simplex import SimplexChart
 from .transport_maps import IdentityTransportMap, TransportMap
 from .types import Array
 from .utils import adjust_weights_to_positive_orthant, is_on_hypersphere
@@ -121,19 +120,6 @@ class SurrogateChart:
         z: Float[Array, "n_points n_latent_dims"],
     ) -> Float[Array, "n_points n_seeds_minus_one"]:
         return self.from_w_to_u(self.from_z_to_w(z))
-
-
-@jaxtyped(typechecker=beartype)
-def simplex_surrogate_chart(
-    seed_latents: Float[Array, "n_seeds n_latent_dims"],
-    *,
-    transport_map: TransportMap | None = None,
-) -> SurrogateChart:
-    return SurrogateChart(
-        seed_latents=seed_latents,
-        weight_chart=SimplexChart(),
-        transport_map=transport_map,
-    )
 
 
 @jaxtyped(typechecker=beartype)
