@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "Latent spaces by example."
 readme = "README.md"
 authors = [
-    { name = "Sam Willis" }
+    { name = "Sam Willis" },
+    { name = "Erik Bodin" },
 ]
 requires-python = ">=3.12"
 dependencies = [
@@ -17,9 +18,9 @@ dependencies = [
 license = { text = "MIT" }
 
 [project.urls]
-Repository = "TODO"
-Issues = "TODO"
-Documentation = "TODO"
+Repository = "https://github.com/sam-willis/latent-spaces-by-example"
+Issues = "https://github.com/sam-willis/latent-spaces-by-example/issues"
+Documentation = "https://arxiv.org/abs/2509.23800"
 
 [build-system]
 requires = ["uv_build>=0.10.0,<0.11.0"]
@@ -27,8 +28,26 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "black>=26.1.0",
+    "isort>=7.0.0",
     "pytest>=9.0.2",
     "ruff>=0.15.0",
+]
+
+# Optional dependencies for examples (not required for core library usage).
+examples = [
+    "accelerate>=0.24.0",
+    "bitsandbytes>=0.47.0",
+    "click>=8.1.0",
+    "diffusers>=0.25.0",
+    "matplotlib>=3.8.0",
+    "pillow>=10.0.0",
+    "protobuf>=4.25.0",
+    "safetensors>=0.4.0",
+    "sentencepiece>=0.2.0",
+    "torch>=2.0.0",
+    "tqdm>=4.66.0",
+    "transformers>=4.35.0",
 ]
 
 [tool.ruff]
@@ -38,9 +57,6 @@ target-version = "py312"
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 ignore = ["F722"]
-
-[tool.ruff.lint.per-file-ignores]
-"src/latent_spaces_by_example/surrogate.py" = ["F821"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
