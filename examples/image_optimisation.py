@@ -282,6 +282,7 @@ class History:
     def __init__(self, outdir: Path, prefix: str):
         self.history: list[EvalResult] = []
         self.best_score = -float("inf")
+        self.best_u: np.ndarray | None = None
         self.best_image_path: str | None = None
         self.outdir = outdir
         self.prefix = prefix
@@ -309,6 +310,7 @@ class History:
 
         if image is not None and score > self.best_score:
             self.best_score = score
+            self.best_u = u
             self.best_image_path = str(self.outdir / f"{self.prefix}_best_image.png")
             image.save(self.best_image_path)
 
@@ -509,7 +511,7 @@ def main(
             )
             return s
 
-        best_u, best_s, _, _ = _direct_search(
+        _direct_search(
             objective=objective_score_only,
             max_evals=direct_evals,
             u_dims=u_dims,
@@ -554,14 +556,6 @@ def main(
                 [e.score for e in direct_history.history], dtype=np.float64
             )
             if direct_u.ndim == 2 and direct_u.shape[1] == 2:
-                plt.plot(
-                    direct_u[:, 0],
-                    direct_u[:, 1],
-                    color="black",
-                    alpha=0.25,
-                    linewidth=1.0,
-                    zorder=6,
-                )
                 plt.scatter(
                     direct_u[:, 0],
                     direct_u[:, 1],
@@ -572,7 +566,7 @@ def main(
                     alpha=0.9,
                     edgecolors="black",
                     linewidths=0.25,
-                    label="DIRECT evals (colored by score)",
+                    label="DIRECT evals",
                     zorder=7,
                 )
 
@@ -610,9 +604,6 @@ def main(
         )
 
     summary = {
-        "best_score": best_s if best_s is not None else None,
-        "best_u": [float(x) for x in best_u.tolist()] if best_u is not None else None,
-        "best_image_path": direct_history.best_image_path,
         "u_dims": u_dims,
         "latent_shape": list(latent_shape),
         "latent_dim": latent_dim,
@@ -631,10 +622,14 @@ def main(
         json.dump(summary, f, indent=2)
 
     print("done")
-    print("best_score:", best_s)
-    print("best_u:", best_u)
+    print("best_score by grid search:", grid_history.best_score)
+    print("best_u by grid search:", grid_history.best_u)
+    if grid_history.best_image_path is not None:
+        print("best_image by grid search:", grid_history.best_image_path)
+    print("best_score by direct search:", direct_history.best_score)
+    print("best_u by direct search:", direct_history.best_u)
     if direct_history.best_image_path is not None:
-        print("best_image:", direct_history.best_image_path)
+        print("best_image by direct search:", direct_history.best_image_path)
 
 
 if __name__ == "__main__":

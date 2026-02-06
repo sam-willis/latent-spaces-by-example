@@ -60,10 +60,7 @@ class SurrogateChart:
     ) -> None:
         self._tol = float(tolerance)
         self._weight_chart = weight_chart or KnotheRosenblattChart(tolerance=self._tol)
-
-        self._transport_map = transport_map
-        if self._transport_map is None:
-            self._transport_map = IdentityTransportMap()
+        self._transport_map = transport_map or IdentityTransportMap()
 
         inner_seed_latents = self._transport_map.forward(seed_latents)
 
