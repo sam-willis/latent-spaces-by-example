@@ -1,0 +1,46 @@
+[project]
+name = "latent-spaces-by-example"
+version = "0.1.0"
+description = "Latent spaces by example."
+readme = "README.md"
+authors = [
+    { name = "Sam Willis" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "beartype>=0.18.5",
+    "jaxtyping>=0.2.36",
+    "numpy>=1.26.0",
+    "scipy>=1.12.0",
+]
+
+license = { text = "MIT" }
+
+[project.urls]
+Repository = "TODO"
+Issues = "TODO"
+Documentation = "TODO"
+
+[build-system]
+requires = ["uv_build>=0.10.0,<0.11.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.15.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["F722"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/latent_spaces_by_example/surrogate.py" = ["F821"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
