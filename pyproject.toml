@@ -1,6 +1,6 @@
 [project]
 name = "latent-spaces-by-example"
-version = "0.1.0"
+version = "0.1.1"
 description = "Latent spaces by example."
 readme = "README.md"
 authors = [
@@ -28,6 +28,7 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "build>=1.4.0",
     "black>=26.1.0",
     "isort>=7.0.0",
     "pytest>=9.0.2",
