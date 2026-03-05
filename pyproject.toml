@@ -1,13 +1,13 @@
 [project]
 name = "latent-spaces-by-example"
-version = "0.1.1"
+version = "0.1.2"
 description = "Latent spaces by example."
 readme = "README.md"
 authors = [
     { name = "Sam Willis" },
     { name = "Erik Bodin" },
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
     "beartype>=0.18.5",
     "jaxtyping>=0.2.36",
@@ -53,7 +53,7 @@ examples = [
 
 [tool.ruff]
 line-length = 100
-target-version = "py312"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
